@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '../contexts/AuthContext.jsx'
-import { useState } from 'react'
 import { createPost } from '../api/posts.js'
 
 export function CreatePost() {
@@ -8,7 +8,7 @@ export function CreatePost() {
 
   const [contents, setContents] = useState('')
 
-  const { token } = useAuth()
+  const [token] = useAuth()
 
   const queryClient = useQueryClient()
 
@@ -37,6 +37,7 @@ export function CreatePost() {
         />
       </div>
       <br />
+
       <textarea
         value={contents}
         onChange={(e) => setContents(e.target.value)}
@@ -45,8 +46,8 @@ export function CreatePost() {
       <br />
       <input
         type='submit'
-        value={createPostMutation.isPending ? 'Creating...' : 'Create'}
-        disabled={!title || createPostMutation.isPending}
+        value={createPostMutation.isPending ? 'Creating....' : 'Create'}
+        disabled={!title}
       />
       {createPostMutation.isSuccess ? (
         <>
