@@ -5,6 +5,7 @@ const post = new Post({
   title: 'Hello Mongoose!',
   author: 'Samantha Godbold',
   contents: 'This post is stored in a MongoDB database using Mongoose.',
+  imageUrl: 'https://exampleofrecipephoto.com/recipe.jpg',
   tags: ['mongoose', 'mongodb'],
 })
 const createdPost = await post.save()

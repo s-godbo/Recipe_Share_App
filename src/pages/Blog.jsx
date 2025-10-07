@@ -30,7 +30,7 @@ export function Blog() {
       <CreatePost />
       <br />
       <hr />
-      Filter by:
+      Filter recipes by
       <PostFilter
         field='author'
         value={author}

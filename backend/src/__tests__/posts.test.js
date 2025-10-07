@@ -134,11 +134,13 @@ describe('creating posts', () => {
     const post = {
       title: 'Hello Mongoose!',
       contents: 'This post is stored in a MongoDB database using Mongoose.',
+      imageUrl: 'https://example.com/mongoose.jpg',
       tags: ['mongoose', 'mongodb'],
     }
     const createdPost = await createPost(testUser._id, post)
     expect(createdPost._id).toBeInstanceOf(mongoose.Types.ObjectId)
     const foundPost = await Post.findById(createdPost._id)
+    expect(foundPost).toEqual(expect.objectContaining(post))
     expect(foundPost).toEqual(expect.objectContaining(post))
     expect(foundPost.createdAt).toBeInstanceOf(Date)
     expect(foundPost.updatedAt).toBeInstanceOf(Date)

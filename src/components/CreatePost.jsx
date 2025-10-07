@@ -8,12 +8,14 @@ export function CreatePost() {
 
   const [contents, setContents] = useState('')
 
+  const [imageUrl, setImageUrl] = useState('')
+
   const [token] = useAuth()
 
   const queryClient = useQueryClient()
 
   const createPostMutation = useMutation({
-    mutationFn: () => createPost(token, { title, contents }),
+    mutationFn: () => createPost(token, { title, contents, imageUrl }),
     onSuccess: () => queryClient.invalidateQueries(['posts']),
   })
 
@@ -22,12 +24,12 @@ export function CreatePost() {
     createPostMutation.mutate()
   }
 
-  if (!token) return <div>Please log in to create new posts.</div>
+  if (!token) return <div>Please log in to create new recipe posts.</div>
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor='create-title'>Title: </label>
+        <label htmlFor='create-title'>Recipe Title: </label>
         <input
           type='text'
           name='create-title'
@@ -37,10 +39,19 @@ export function CreatePost() {
         />
       </div>
       <br />
-
+      <label htmlFor='create-title'>Ingredients & Instructions: </label>
+      <br />
       <textarea
         value={contents}
         onChange={(e) => setContents(e.target.value)}
+      />
+      <br />
+      <label htmlFor='create-image'>Recipe Photo (as URL): </label>
+      <br />
+      <input
+        type='text'
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
       />
       <br />
       <br />
@@ -52,7 +63,7 @@ export function CreatePost() {
       {createPostMutation.isSuccess ? (
         <>
           <br />
-          Post created successfully!
+          Recipe created successfully!
         </>
       ) : null}
     </form>
